@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun May 30 18:43:32 2021
+
+@author: somma
+"""
+
+
 # To be installed:
 # Flask==0.12.2: pip install Flask==0.12.2
 # Postman HTTP Client: https://www.getpostman.com/
@@ -117,7 +125,7 @@ def mine_block():
     previous_proof = previous_block['proof']
     proof = blockchain.proof_of_work(previous_proof)
     previous_hash = blockchain.hash(previous_block)
-    blockchain.add_transactions(sender=node_address,receiver='Som' , amount=10)
+    blockchain.add_transactions(sender=node_address,receiver='Sumant' , amount=10)
     block = blockchain.create_block(proof, previous_hash)
     response = {'message': 'Congratulations, you just mined a block!',
                 'index': block['index'],
@@ -186,7 +194,7 @@ def replace_chain():
     return jsonify(response), 200
 #replacing the chain by the longest chain if needed
 # Running the app
-app.run(host = '0.0.0.0', port = 5000)
+app.run(host = '0.0.0.0', port = 5001)
 
 
 
