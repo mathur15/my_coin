@@ -159,7 +159,17 @@ def add_transaction():
     return jsonify(response),201
     
 #part3 Decentralizing our blockchain
-
+#connecting new nodes-register new nodes
+@app.route('/connect_node', methods = ['POST'])
+def connect_node():
+    json = request.get_json()
+    #get addresses to add
+    addresses = json.get('nodes')
+    #check if the request is invaalid
+    if addresses is None:
+        return "No node", 400
+    for address in addresses:
+        blockchain.add_nodes(address)
 # Running the app
 app.run(host = '0.0.0.0', port = 5000)
 
