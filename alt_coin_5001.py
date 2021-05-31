@@ -95,11 +95,11 @@ class Blockchain:
         
         #loop over the nodes in the network to find largest chain
         for nodes in network:
-            response = request.get(f"http://{nodes}/get_chain")
+            response = requests.get(f"http://{nodes}/get_chain")
             if response.status_code == 200:
                 length = response.json()['length']
                 chain = response.json()['chain']
-                if(length > max_length) and is_valid(chain):
+                if(length > max_length) and self.is_chain_valid(chain):
                     max_length = length
                     longest_chain = chain
         if longest_chain:
@@ -173,14 +173,17 @@ def connect_node():
     json = request.get_json()
     #get addresses to add {"nodes":[addr1, addr2,....]}
     addresses = json.get('nodes')
+    print(addresses)
     #check if the request is invaalid
+
     if addresses is None:
-        return "No node", 400
+         return "No node", 400
     for address in addresses:
-        blockchain.add_nodes(address)
+         blockchain.add_nodes(address)
     response = {"message": "All the nodes are now connectected. The blockchain now has nodes",
-                "total_nodes":list(blockchain.nodes)}
+                 "total_nodes":list(blockchain.nodes)}
     return jsonify(response),201
+
 
 @app.route('/replace_chain', methods = ['GET'])
 def replace_chain():
