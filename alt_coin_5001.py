@@ -161,7 +161,7 @@ def add_transaction():
     if not all (keys in json for keys in transaction_keys):
         return 'Error in some elements passed as a transactions', 400
     index = blockchain.add_transactions(sender=json["sender"],
-                                        receiver=json["recevier"]
+                                        receiver=json["receiver"]
                                         , amount=json["amount"])
     response = {"message":f"The transaction is being added to block with index {index}"}
     return jsonify(response),201
